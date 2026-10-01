@@ -14,11 +14,11 @@ interface ThemeState {
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set, get) => ({
-      mode: 'system',
+      mode: 'light',
       setMode: (mode: ThemeMode) => set({ mode }),
       toggleMode: () => {
         const current = get().mode;
-        const next: ThemeMode = current === 'light' ? 'dark' : current === 'dark' ? 'system' : 'light';
+        const next: ThemeMode = current === 'dark' ? 'light' : 'dark';
         set({ mode: next });
       },
     }),

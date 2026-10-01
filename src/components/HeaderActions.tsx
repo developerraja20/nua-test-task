@@ -21,7 +21,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
   const { colors, mode, toggleMode, isDark } = useTheme();
   const totalItems = useCartStore((state) => state.getTotalItemsCount());
 
-  const ThemeIcon = mode === 'system' ? Smartphone : isDark ? Moon : Sun;
+  const ThemeIcon = isDark ? Moon : Sun;
 
   return (
     <View style={styles.container}>
@@ -38,11 +38,11 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
       <TouchableOpacity
         onPress={toggleMode}
         style={[styles.iconButton, { backgroundColor: colors.surfaceSecondary }]}
-        accessibilityLabel={`Current theme: ${mode}. Tap to toggle.`}
+        accessibilityLabel={`Current theme: ${isDark ? 'dark' : 'light'}. Tap to toggle theme.`}
       >
         <ThemeIcon
           size={19}
-          color={mode === 'system' ? colors.primary : colors.text}
+          color={colors.text}
         />
       </TouchableOpacity>
 
@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginRight: 6,
+    marginRight: 10,
+    overflow: 'visible',
   },
   iconButton: {
     width: 38,
@@ -85,11 +86,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
+    overflow: 'visible',
   },
   badge: {
     position: 'absolute',
-    top: -4,
-    right: -4,
+    top: -0.5,
+    right: -0.5,
     minWidth: 18,
     height: 18,
     borderRadius: 9,
@@ -97,10 +99,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1.5,
+    zIndex: 10,
   },
   badgeText: {
     color: '#FFFFFF',
     fontSize: 10,
     fontWeight: '800',
+    lineHeight: 12,
+    textAlign: 'center',
   },
 });
